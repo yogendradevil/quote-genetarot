@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quote</title>
+</head>
+
+<body>
+    <nav>
+        <h1>Random Quote</h1>
+    </nav>
+    <section class="bigbox">
+        <div class="box">
+            <p id="text"></p>
+            <br>
+            <p id="author"></p>
+            <br>
+            <button class="share" role="button" onclick="share2()">Share</button>
+        </div>
+        <button class="change" role="button" onclick="getNewQuotes()">change</button>
+    </section>
+    <script>
+        let img=document.createElement('img');
+ 
+         let text = document.getElementById('text');
+         let author = document.getElementById('author');
+         let share = document.getElementById('share');
+         
+ 
+ 
+ 
+         let realdata = "";
+         let data2="";
+         const getNewQuotes = () => {
+             let rnum = Math.floor(Math.random() * 1648);
+             text.innerHTML = realdata[rnum].text;
+             data=realdata[rnum].text;
+             author.innerHTML = realdata[rnum].author;
+             if (realdata[rnum].author == null) {
+                 author.innerHTML = "By-Unknown";
+             } else {
+                 author.innerHTML = `<span>By</span>-${realdata[rnum].author}`;
+             }
+         }
+         function share2() {
+             window.open(`http://twitter.com/share?text=${data}`);
+         }
+ 
+         const getQuotes = async () => {
+             const api = "https://type.fit/api/quotes";
+             try {
+                 let data = await fetch(api);
+                 realdata = await data.json();
+                 getNewQuotes();
+                 // console.log(realdata[1].author);
+             }
+             catch (error) {
+             }
+         }
+         getQuotes();
+ 
+ 
+     </script>
+</body>
+
+</html>
